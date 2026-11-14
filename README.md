@@ -17,6 +17,7 @@
 | 项目 | 简介 | 当前重点平台 | 项目入口 |
 | --- | --- | --- | --- |
 | **TileLang-TPU** | 面向 SOPHGO TPU 的 TileLang 扩展，提供 TPU 编译、代码生成与 JIT 运行集成 | SOPHGO BM1690 | [源码与说明](https://github.com/TongmingLAIC/tilelang-tpu) · [算子示例](https://github.com/TongmingLAIC/tilelang-tpu/tree/main/tpu_demo) |
+| **tilelang-riscv-kubuds** | 面向 SpacemiT K3 的 TileLang RISC-V 扩展，提供 RVV、IME 编译、代码生成 | SpacemiT K3 | [源码与说明](https://github.com/kubuds/tilelang-riscv-kubuds/tree/kubuds-riscv-hikari) · [测试报告](https://github.com/kubuds/tilelang-riscv-kubuds/blob/kubuds-riscv-hikari/docs/RISCV_REPORT_2026-11-03.txt) |
 
 ### TileLang-TPU
 
