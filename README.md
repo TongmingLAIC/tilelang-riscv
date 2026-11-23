@@ -17,6 +17,7 @@
 | 项目 | 简介 | 当前重点平台 | 项目入口 |
 | --- | --- | --- | --- |
 | **TileLang-TPU** | 面向 SOPHGO TPU 的 TileLang 扩展，提供 TPU 编译、代码生成与 JIT 运行集成 | SOPHGO BM1690 | [源码与说明](https://github.com/TongmingLAIC/tilelang-tpu) · [算子示例](https://github.com/TongmingLAIC/tilelang-tpu/tree/main/tpu_demo) |
+| **tilelang-riscv-kubuds** | 面向 SpacemiT K3 的 TileLang RISC-V 扩展，提供 RVV、IME 编译、代码生成 | SpacemiT K3 | [源码与说明](https://github.com/kubuds/tilelang-riscv-kubuds/tree/kubuds-riscv-hikari) · [测试报告](https://github.com/kubuds/tilelang-riscv-kubuds/blob/kubuds-riscv-hikari/docs/RISCV_REPORT_2026-11-03.txt) |
 
 ### TileLang-TPU
 
@@ -39,6 +40,27 @@
 - [算子示例目录](https://github.com/TongmingLAIC/tilelang-tpu/tree/main/tpu_demo)
 - [问题反馈与功能建议](https://github.com/TongmingLAIC/tilelang-tpu/issues)
 - [代码贡献与 Pull Requests](https://github.com/TongmingLAIC/tilelang-tpu/pulls)
+
+### tilelang-riscv-kubuds
+
+[**tilelang-riscv-kubuds**](https://github.com/kubuds/tilelang-riscv-kubuds/tree/kubuds-riscv-hikari) 面向进迭时空（SpacemiT）K3 平台，在 TileLang 中增加 `riscv` 目标，把算子编译到 RVV 与 IME2 两条加速路径上（基于 TileLang v0.1.15）。
+
+项目当前主线聚焦 **SpacemiT K3**（8× X100，RVV VLEN=256；8× A100，带 IME2，VLEN=1024），主要内容包括：
+
+- **RISC-V 编译目标**：通过 `target={"kind": "riscv", ...}` 接入后端，可指定 `march`、`mabi`、`vlen`、`rvv`、`blas`、`ime2`。
+- **三条执行路径**：RV64GC 基线（复用 TVM 的 CPU 路径）、X100 上的 RVV 1.0、A100 上的 IME2 int8 GEMM（独立 `.so`）。
+- **RVV 算子与 GEMM**：为 `T.gemm` 补上 CPU 实现（512³ fp32 在 X100 上 9.2 ms、29.2 GFLOP/s），并提供 LLM 路径所需的 RVV 原语；可选接 OpenBLAS 提升吞吐。
+- **端侧 LLM 推理**：附带一个 int8 推理引擎，在板上端到端运行 Qwen3-0.6B/1.7B/8B 与 DeepSeek-R1-Distill-Qwen-1.5B。
+
+支持范围、依赖版本及各示例的运行条件，以项目当前文档为准。
+
+**项目导航：**
+
+- [RISC-V 后端说明](https://github.com/kubuds/tilelang-riscv-kubuds/blob/kubuds-riscv-hikari/docs/RISCV_BACKEND.md)
+- [测试报告](https://github.com/kubuds/tilelang-riscv-kubuds/blob/kubuds-riscv-hikari/docs/RISCV_REPORT_2026-11-03.txt)
+- [K3 验证记录](https://github.com/kubuds/tilelang-riscv-kubuds/blob/kubuds-riscv-hikari/docs/K3_VERIFY_REPORT_2026-11-15.md)
+- [问题反馈与功能建议](https://github.com/kubuds/tilelang-riscv-kubuds/issues)
+- [代码贡献与 Pull Requests](https://github.com/kubuds/tilelang-riscv-kubuds/pulls)
 
 ## 关注方向
 
